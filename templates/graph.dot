@@ -1,0 +1,37 @@
+graph G {
+    layout="circo"
+    mindist=0.7;
+    bgcolor="black";
+    label = "{{ title }}";
+    labelloc = "t"; // place the label at the top (b seems to be default)
+    node [shape=circle, penwidth=4.0, height=0.1, fontcolor="white"];
+    edge [color="white"];
+
+{%- for color in colors %}
+  {{ loop.index }} [color="{{ color }}"];
+{%- endfor %}
+
+{%- for color in colors %}
+
+{% if loop.index % 10 == 0 %}
+{% if loop.index == 10 %}
+1;
+{% else %}
+{{ loop.index-10 }}; 
+// close prev
+{%- endif %}
+
+{{ loop.index/10 }} -- {{ loop.index }} --
+{%- else -%}
+
+    {%- if loop.last %}
+    {{ loop.index }};
+    {%- else -%}
+    {{ loop.index }} --
+    {%- endif %}
+
+{%- endif %}
+{%- endfor %}
+
+
+}

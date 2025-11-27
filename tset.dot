@@ -1,0 +1,9 @@
+digraph G {
+    label = "Coloring for (2,4)";
+    labelloc = "t"; // place the label at the top (b seems to be default)
+    node [shape=circle, penwidth=4.0];
+    1 [color="deeppink"];
+    2,3 [color="chartreuse2"];
+    4 [color="deeppink"];
+
+}

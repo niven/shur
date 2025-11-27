@@ -1,0 +1,164 @@
+graph G {
+    layout="circo"
+    mindist=0.7;
+    bgcolor="black";
+    label = "Coloring for 4 colors and 44 numbers";
+    labelloc = "t"; // place the label at the top (b seems to be default)
+    node [shape=circle, penwidth=4.0, height=0.1, fontcolor="white"];
+    edge [color="white"];
+  1 [color="#fc17da"];
+  2 [color="#FFFF00"];
+  3 [color="#fc17da"];
+  4 [color="#38befc"];
+  5 [color="#fc17da"];
+  6 [color="#38befc"];
+  7 [color="#FFFF00"];
+  8 [color="#FFFF00"];
+  9 [color="#19de12"];
+  10 [color="#19de12"];
+  11 [color="#19de12"];
+  12 [color="#19de12"];
+  13 [color="#38befc"];
+  14 [color="#19de12"];
+  15 [color="#fc17da"];
+  16 [color="#19de12"];
+  17 [color="#fc17da"];
+  18 [color="#FFFF00"];
+  19 [color="#fc17da"];
+  20 [color="#38befc"];
+  21 [color="#FFFF00"];
+  22 [color="#38befc"];
+  23 [color="#38befc"];
+  24 [color="#FFFF00"];
+  25 [color="#38befc"];
+  26 [color="#fc17da"];
+  27 [color="#FFFF00"];
+  28 [color="#fc17da"];
+  29 [color="#19de12"];
+  30 [color="#38befc"];
+  31 [color="#19de12"];
+  32 [color="#38befc"];
+  33 [color="#FFFF00"];
+  34 [color="#19de12"];
+  35 [color="#19de12"];
+  36 [color="#19de12"];
+  37 [color="#FFFF00"];
+  38 [color="#FFFF00"];
+  39 [color="#38befc"];
+  40 [color="#fc17da"];
+  41 [color="#38befc"];
+  42 [color="#fc17da"];
+  43 [color="#FFFF00"];
+  44 [color="#fc17da"];
+
+1 --
+
+2 --
+
+3 --
+
+4 --
+
+5 --
+
+6 --
+
+7 --
+
+8 --
+
+9 --
+
+
+
+1;
+
+
+1 -- 10 --
+
+11 --
+
+12 --
+
+13 --
+
+14 --
+
+15 --
+
+16 --
+
+17 --
+
+18 --
+
+19 --
+
+
+
+10; 
+// close prev
+
+2 -- 20 --
+
+21 --
+
+22 --
+
+23 --
+
+24 --
+
+25 --
+
+26 --
+
+27 --
+
+28 --
+
+29 --
+
+
+
+20; 
+// close prev
+
+3 -- 30 --
+
+31 --
+
+32 --
+
+33 --
+
+34 --
+
+35 --
+
+36 --
+
+37 --
+
+38 --
+
+39 --
+
+
+
+30; 
+// close prev
+
+4 -- 40 --
+
+41 --
+
+42 --
+
+43 --
+
+
+    44;
+
+
+}
