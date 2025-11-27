@@ -7,30 +7,34 @@ graph G {
     node [shape=circle, penwidth=4.0, height=0.1, fontcolor="white"];
     edge [color="white"];
 
+// Ensure all numbers have a color assigned
 {%- for color in colors %}
   {{ loop.index }} [color="{{ color }}"];
 {%- endfor %}
 
-{%- for color in colors %}
+// Connect all numbers in multiples of 10 (1-9, 10-19 etc) into circles
+// Then, connect those circles to their matching number (1 for 10, 12 for 120)
 
-{% if loop.index % 10 == 0 %}
-{% if loop.index == 10 %}
-1;
-{% else %}
-{{ loop.index-10 }}; 
-// close prev
-{%- endif %}
+{% for color in colors -%}
 
-{{ loop.index/10 }} -- {{ loop.index }} --
+{%- if loop.index % 10 == 0 %}
+{{ loop.index - 9 -}};
+
+{{ loop.index/10 -}} -- {{ loop.index -}} --
 {%- else -%}
-
-    {%- if loop.last %}
-    {{ loop.index }};
-    {%- else -%}
-    {{ loop.index }} --
-    {%- endif %}
-
+{{- loop.index -}} --
 {%- endif %}
+
+{%- if loop.last -%}
+    {%- if loop.index % 10 == 0 %}
+    {{- loop.index }};
+    // Ends in multiple of 10, so there is no circle
+    {%- else -%}
+    {%- set last_multiple_10 = loop.index/10 | int -%}
+    {{- last_multiple_10 * 10 + 1 -}};
+    {%- endif %}
+{%- endif %}
+
 {%- endfor %}
 
 
