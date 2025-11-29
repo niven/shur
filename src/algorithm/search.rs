@@ -102,7 +102,7 @@ pub fn breadth_first(args: &Args) -> Option<Vec<u8>> {
     while sentinel < args.attempts && solution_length < args.target && todo.len() > 0 {
         println!("------ Stack size: {} ------", todo.len() );
 
-        let mut more: Vec<Vec<u8>> = Vec::new();
+        let mut more: Vec<Vec<u8>> = Vec::with_capacity( todo.len() * args.colors as usize );
         for current in todo {
             println!("Current item: {current:?}\n");
 
