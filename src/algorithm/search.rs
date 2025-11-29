@@ -1,43 +1,14 @@
 use std::cmp::Ordering;
 use std::collections::{BinaryHeap, HashSet};
-use std::fmt::Debug;
-use std::fmt::Error;
-use std::fmt::Formatter;
 
 use crate::Args;
-use crate::util::Solution;
+use crate::util::ColorVec;
 
-#[derive(PartialEq, Eq)]
-struct Coloring {
-    content: Vec<u8>,
-}
-
-impl Debug for Coloring {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
-        write!(f, "Coloring({:?})", self.content)
-    }
-}
-
-// `PartialOrd` needs to be implemented as well.
-impl PartialOrd for Coloring {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
-    }
-}
-
-impl Ord for Coloring {
-    fn cmp(&self, other: &Self) -> Ordering {
-        self.content.len().cmp(&other.content.len())
-    }
-}
-
-pub fn depth_first(args: &Args) -> Option<Solution> {
-    let mut heap = BinaryHeap::new();
+pub fn depth_first(args: &Args) -> Option<ColorVec> {
+    let mut heap: BinaryHeap<ColorVec> = BinaryHeap::new();
 
     // The initial coloring must have 2 different colors.
-    heap.push(Coloring {
-        content: [0, 1].to_vec(),
-    });
+    heap.push( [0, 1].to_vec() );
 
     let mut sentinel = 0;
     while sentinel < args.attempts && heap.len() > 0 {
@@ -47,12 +18,12 @@ pub fn depth_first(args: &Args) -> Option<Solution> {
 
         let possible_next_colors = find_next_colors(args.colors, &current);
         for n in possible_next_colors {
-            let mut next = current.content.clone();
+            let mut next = current.clone();
             next.push(n);
             if next.len() == args.target {
                 return Some(next);
             }
-            heap.push(Coloring { content: next });
+            heap.push( next );
         }
 
         sentinel += 1;
@@ -64,16 +35,16 @@ pub fn depth_first(args: &Args) -> Option<Solution> {
 }
 
 // So, so many optimizations possible
-fn find_next_colors(colors: u8, c: &Coloring) -> Vec<u8> {
-    let mut result: Vec<u8> = Vec::new();
+fn find_next_colors(colors: u8, c: &ColorVec) -> Vec<u8> {
+    let mut result: ColorVec = Vec::new();
     let mut banned: HashSet<u8> = HashSet::new();
 
-    let target = c.content.len();
+    let target = c.len();
     // find all sums a+b=c where c is the target. Since a+b=b+a we only need to run a to half target
     for a in 0..=target / 2 {
         let b = target - a - 1;
-        if c.content[a] == c.content[b] {
-            banned.insert(c.content[a]);
+        if c[a] == c[b] {
+            banned.insert(c[a]);
             if banned.len() == colors as usize {
                 // If everything is banned there are no possible next colors
                 return result;
@@ -91,10 +62,10 @@ fn find_next_colors(colors: u8, c: &Coloring) -> Vec<u8> {
 }
 
 // This could also be implemented using a BinaryHeap but that's boring.
-pub fn breadth_first(args: &Args) -> Option<Solution> {
+pub fn breadth_first(args: &Args) -> Option<ColorVec> {
     
     // The initial coloring must have 2 different colors.
-    let mut todo: Vec<Solution> = Vec::new();
+    let mut todo: Vec<ColorVec> = Vec::new();
     let first = [0, 1];
     todo.push( first.to_vec() );
 
@@ -103,11 +74,11 @@ pub fn breadth_first(args: &Args) -> Option<Solution> {
     while sentinel < args.attempts && solution_length < args.target && todo.len() > 0 {
         println!("------ Stack size: {} ------", todo.len() );
 
-        let mut more: Vec<Solution> = Vec::with_capacity( todo.len() * args.colors as usize );
+        let mut more: Vec<ColorVec> = Vec::with_capacity( todo.len() * args.colors as usize );
         for current in todo {
             println!("Current item: {current:?}\n");
 
-            let possible_next_colors = find_next_colors(args.colors, &Coloring{ content: current.clone()});
+            let possible_next_colors = find_next_colors(args.colors, &current);
             println!("{} Children:", possible_next_colors.len());
             for n in possible_next_colors {
                 let mut next = current.clone();

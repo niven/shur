@@ -1,6 +1,6 @@
 pub const COLOR_LETTERS: [char; 5] = ['a', 'b', 'c', 'd', 'e'];
 
-pub type Solution = Vec<u8>;
+pub type ColorVec = Vec<u8>;
 
 #[derive(Debug)]
 pub struct InvalidOrdering {
@@ -8,7 +8,7 @@ pub struct InvalidOrdering {
     pub message: String,
 }
 
-pub fn check_coloring(colors: &Vec<u8>) -> Result<&str, InvalidOrdering> {
+pub fn check_coloring(colors: &ColorVec) -> Result<&str, InvalidOrdering> {
     let max = colors.len() as u64;
 
     // Use inclusive ranges
@@ -66,7 +66,7 @@ fn triangle(n: u64) -> u64 {
 }
 
 // Format a vector of numbers into a human readable string
-pub fn short(solution: &Vec<u8>) -> String {
+pub fn short(solution: &ColorVec) -> String {
     let mapped: Vec<char> = solution
         .iter()
         .map(|&i| COLOR_LETTERS[i as usize])

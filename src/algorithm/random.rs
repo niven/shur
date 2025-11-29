@@ -6,7 +6,9 @@ use std::fmt::Formatter;
 
 use crate::Args;
 use crate::util;
+use crate::util::ColorVec;
 use rand::distr::{Distribution, Uniform};
+
 
 pub fn random_fill(colors: u8, n: usize) -> Vec<u8> {
     let mut vec: Vec<u8> = Vec::with_capacity(n);
@@ -19,7 +21,7 @@ pub fn random_fill(colors: u8, n: usize) -> Vec<u8> {
 }
 
 // Just assign colors at random
-pub fn random_assignment(args: &Args) -> Option<Vec<u8>> {
+pub fn random_assignment(args: &Args) -> Option<ColorVec> {
     for _ in 0..args.attempts {
         let result = random_fill(args.colors, args.target);
         if let Ok(_) = util::check_coloring(&result) {
@@ -34,7 +36,7 @@ pub fn random_assignment(args: &Args) -> Option<Vec<u8>> {
 // numbers to a "ban list"
 // After adding 3 as color C, ban color C for 3+3 as well as any
 // 3 + n<3 with color C
-pub fn random_with_bannings(args: &Args) -> Option<Vec<u8>> {
+pub fn random_with_bannings(args: &Args) -> Option<ColorVec> {
     let colors = args.colors;
     let target = args.target;
 
@@ -99,7 +101,7 @@ pub fn random_with_bannings(args: &Args) -> Option<Vec<u8>> {
 #[derive(PartialEq, Eq)]
 struct Prefix {
     count: usize,
-    content: Vec<u8>,
+    content: ColorVec,
 }
 
 impl Debug for Prefix {
@@ -131,7 +133,7 @@ impl Ord for Prefix {
     }
 }
 
-pub fn random_with_backtrack(args: &Args) -> Option<Vec<u8>> {
+pub fn random_with_backtrack(args: &Args) -> Option<ColorVec> {
     let (colors, target) = (args.colors, args.target);
 
     let mut heap = BinaryHeap::new();
