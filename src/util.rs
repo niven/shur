@@ -1,6 +1,6 @@
 pub const COLOR_LETTERS: [char; 5] = ['a', 'b', 'c', 'd', 'e'];
 
-type Solution = Vec<u8>;
+pub type Solution = Vec<u8>;
 
 #[derive(Debug)]
 pub struct InvalidOrdering {

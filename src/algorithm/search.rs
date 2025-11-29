@@ -5,6 +5,7 @@ use std::fmt::Error;
 use std::fmt::Formatter;
 
 use crate::Args;
+use crate::util::Solution;
 
 #[derive(PartialEq, Eq)]
 struct Coloring {
@@ -30,7 +31,7 @@ impl Ord for Coloring {
     }
 }
 
-pub fn depth_first(args: &Args) -> Option<Vec<u8>> {
+pub fn depth_first(args: &Args) -> Option<Solution> {
     let mut heap = BinaryHeap::new();
 
     // The initial coloring must have 2 different colors.
