@@ -90,10 +90,10 @@ fn find_next_colors(colors: u8, c: &Coloring) -> Vec<u8> {
 }
 
 // This could also be implemented using a BinaryHeap but that's boring.
-pub fn breadth_first(args: &Args) -> Option<Vec<u8>> {
+pub fn breadth_first(args: &Args) -> Option<Solution> {
     
     // The initial coloring must have 2 different colors.
-    let mut todo: Vec<Vec<u8>> = Vec::new();
+    let mut todo: Vec<Solution> = Vec::new();
     let first = [0, 1];
     todo.push( first.to_vec() );
 
@@ -102,7 +102,7 @@ pub fn breadth_first(args: &Args) -> Option<Vec<u8>> {
     while sentinel < args.attempts && solution_length < args.target && todo.len() > 0 {
         println!("------ Stack size: {} ------", todo.len() );
 
-        let mut more: Vec<Vec<u8>> = Vec::with_capacity( todo.len() * args.colors as usize );
+        let mut more: Vec<Solution> = Vec::with_capacity( todo.len() * args.colors as usize );
         for current in todo {
             println!("Current item: {current:?}\n");
 
